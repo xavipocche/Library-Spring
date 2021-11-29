@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+    <div>
+        <div>
+            <nav th:replace="/fragments/nav :: nav"></nav>
+        </div>
+    </div>
+    
+    <center>
+        
+        <div id="titulo" class="col-11 row">
+            
+            <div class="col-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                </svg>
+            </div>
+            
+            <center class="col-10">
+                    <h2>Ingresar libros a la base de datos</h2>
+            </center>
+            
+            <div class="col-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                </svg>
+            </div>
+            
+        </div>
+    
+    </center>
+    
+   
+   <div class="row justify-content-center fixdivleft">
+       
+    <div class="formulario col-3"  style="height: fit-content;" >
+      
+        <form th:action="@{/registrarlibros}" method="POST">
+          
+            <div class="form-group">
+                <label for="nombrelibro">Título</label>
+                <input name="titulo" type="text" class="form-control" id="nombrelibro" th:value="${titulo}" placeholder="Título del libro">
+            </div>
+
+            <div class="form-group">
+                <label for="isbn">ISBN</label>
+                <input name="isbn" type="number" min="0" max="999999999999999999" class="form-control" id="isbn" th:value="${isbn}" placeholder="ISBN del libro">
+            </div>
+
+            <div class="form-group">
+                <label for="año">Año</label>
+                <input name="anio" type="number" class="form-control" id="año" th:value="${anio}" placeholder="Año de lanzamiento">
+            </div>
+
+            <div class="form-group">
+                <label for="ejemplares">Cantidad de ejemplares</label>
+                <input name="ejemplares" type="number" min="1" max="999" class="form-control" id="ejemplares" th:value="${ejemplares}" placeholder="Cantidad de ejemplares">
+            </div>
+                
+            <div class="form-group" style="width: 50%">
+                <label for="Autor">Autor</label>
+                <select class="form-control" id="Autor" name="idautor">
+                    <option th:each="autor: ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option>
+                </select>
+            </div>
+            
+            <div class="form-group" style="width: 50%">
+                <label for="Editorial">Editorial</label> <br>
+                <select class="form-control" id="Editorial" name="ideditorial"> 
+                    <option th:each="editorial: ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option>
+                </select>
+            </div>
+        
+        <p class="error" th:if="${error != null}" th:text="${error}"></p>
+        <p class="exito" th:if="${exito != null}" th:text="${exito}"></p>
+          
+        <button name="nombre" type="submit" class="btn btn-primary" href="/">Guardar</button>
+        <button type="reset" class="btn btn-danger boton">Limpiar</button>
+        <a th:href="@{/listalibros}"><button type="button" class="btn btn-warning boton">Modificar</button></a>
+            
+      </form>
+        
+    </div>
+    
+       <div class="col-8 formulario">
+        
+        <center><h4>Lista de libros ingresados</h4></center>
+            
+        <table class="">
+            <thead>
+                <tr style="color:yellow; font-family: Verdana">
+                    <th>TÍTULO</th>
+                    <th>AUTOR</th>
+                    <th>EJ. DISPONIBLES</th>
+                    <th>CANT. EJ.</th>
+                    <th>EDITORIAL</th>
+                    <th>ALTA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="libro: ${libros}">
+                    <th th:text="${libro.titulo}"></th>
+                    <th th:text="${libro.autor.nombre}"></th>
+                    <th th:text="${libro.ejemplaresRestantes}"></th>
+                    <th th:text="${libro.ejemplares}"></th>
+                    <th th:text="${libro.editorial.nombre}"></th>
+                    
+                    <th>
+                        <a th:href="@{baja/__${libro.id}__}" ><button type="button" class="btn btn-success" th:if="${libro.alta}" th:text="${alta}" style="color:white"></button></a>
+                        <a th:href="@{alta/__${libro.id}__}"><button type="button" class="btn btn-danger" th:unless="${libro.alta}" th:text="${baja}" style="color:white"></button></a>
+                    </th>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+   </div>
+
+<div th:replace="/fragments/contact :: div"></div>  
+   
+   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+</body>
+</html>

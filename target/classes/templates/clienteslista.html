@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+    <div>
+        <nav th:replace="/fragments/nav :: nav"></nav>
+    </div>
+    
+    <center>
+        
+        <div id="titulo" class="col-11 row">
+            
+            <div class="col-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+            </div>
+            
+            <center class="col-10">
+                    <h2>Modificar clientes de la base de datos</h2>
+            </center>
+            
+            <div class="col-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+            </div>
+            
+        </div>
+    
+    </center>
+
+    <div class="row justify-content-center fixdivleft" >
+        <div class="col-11 formulario">
+            <center><h4>Lista de clientes ingresados</h4></center>
+            <table class="">
+                <thead>
+                    <tr style="color:yellow; font-family: Verdana">
+                        <th>NOMBRE</th>
+                        <th>APELLIDO</th>
+                        <th>TELÉFONO</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente: ${clientes}" class="datostable">
+                        <th th:text="${cliente.nombre}"></th>
+                        <th th:text="${cliente.apellido}"></th>
+                        <th th:text="${cliente.telefono}"></th>
+
+                        <th>
+                            <a th:href="@{/clientesmodificar/__${cliente.id}__}"><button type="button" class="btn btn-warning boton">Modificar</button></a>
+                            <a th:href="@{/eliminarcliente/__${cliente.id}__}"><button type="button" class="btn btn-danger boton">Eliminar</button></a>
+                        </th>
+
+                    </tr>
+                </tbody>
+            </table>
+            <center style="margin-top: 5px"><a th:href="@{/}"><button type="button" class="btn btn-primary" href="/">Volver</button></a></center>
+        </div>
+    </div>
+    
+<div th:replace="/fragments/contact2 :: div"></div>     
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+</body>
+</html>

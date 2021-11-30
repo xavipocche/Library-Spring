@@ -33,35 +33,8 @@
     </center>
 
     <div class="row justify-content-center fixdivleft" >
-        
-        <div class="formulario col-3"  style="height: fit-content">
-        
-            <form th:action="@{/registrarclientes}" method="POST">
-            
-            <div class="form-group">
-              <label for="nombreusuario">Nombre del Cliente</label>
-              <input name="nombre" type="text" class="form-control" aria-describedby="emailHelp" th:value="${nombre}" id="nombreusuario" placeholder="Nombre del Usuario">
-            </div>
-                
-            <div class="form-group">
-              <label for="apellido">Apellido del Cliente</label>
-              <input name="apellido" type="text" class="form-control" aria-describedby="emailHelp" th:value="${apellido}" id="apellido" placeholder="Apellido del Usuario">
-            </div>
-                
-            <div class="form-group">
-              <label for="email">Email del Cliente</label>
-              <input name="email" type="email" class="form-control" aria-describedby="emailHelp" th:value="${email}" id="email" placeholder="Email del cliente">
-            </div>
-            
-            <p class="error" th:if="${error != null}" th:text="${error}"></p>
-            <p class="exito" th:if="${exito != null}" th:text="${exito}"></p>
-            
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <button id="redbutton" type="reset" class="btn btn-danger">Limpiar</button>
-            <a th:href="@{/clienteslista}"><button type="button" class="btn btn-warning boton">Modificar</button></a>
           </form>
-    </div>
-    <div class="col-8 formulario">
+    <div class="col-11 formulario">
         <center><h4>Lista de clientes ingresados</h4></center>
         <table class="">
             <thead>
@@ -69,6 +42,7 @@
                     <th>NOMBRE</th>
                     <th>APELLIDO</th>
                     <th>EMAIL</th>
+                    <th>ACCIONES</th>
                     <th>ALTA</th>
                 </tr>
             </thead>
@@ -77,20 +51,27 @@
                     <th th:text="${usuario.nombre}"></th>
                     <th th:text="${usuario.apellido}"></th>
                     <th th:text="${usuario.email}"></th>
-                    
                     <th>
-                        <a th:href="@{bajausuario/__${usuario.id}__}"><button type="button" class="btn btn-success" th:if="${usuario.alta}" th:text="${alta}" style="color:white"></button></a>
-                        <a th:href="@{altausuario/__${usuario.id}__}"><button type="button" class="btn btn-danger" th:unless="${usuario.alta}" th:text="${baja}" style="color:white"></button></a>
+                        <a th:href="@{/modificarusuario/__${usuario.id}__}"><button type="button" class="btn btn-warning boton">Modificar</button></a>
+                        <a th:href="@{/eliminarusuario/__${usuario.id}__}"><button type="button" class="btn btn-danger boton">Eliminar</button></a>
+                    </th>
+                    <th>
+                        <a th:href="@{/bajausuario/__${usuario.id}__}"><button type="button" class="btn btn-success" th:if="${usuario.alta}" th:text="${alta}" style="color:white"></button></a>
+                        <a th:href="@{/altausuario/__${usuario.id}__}"><button type="button" class="btn btn-danger" th:unless="${usuario.alta}" th:text="${baja}" style="color:white"></button></a>
                     </th>
                     
                 </tr>
+                
             </tbody>
             
         </table>
+        <p class="error" th:if="${error != null}" th:text="${error}" style="margin: 0; margin-top: 5px; padding: 0;"></p>
+        <p class="exito" th:if="${exito != null}" th:text="${exito}" style="margin: 0; margin-top: 5px; padding: 0;"></p>
     </div>
+          
     </div>
 
-<div th:replace="/fragments/contact :: div"></div>
+<div th:replace="/fragments/contact2 :: div"></div>
     
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>

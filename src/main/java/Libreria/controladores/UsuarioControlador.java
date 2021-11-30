@@ -65,7 +65,7 @@ public class UsuarioControlador {
         return "usuarioregistro.html";
     }
     
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     @GetMapping("/useregistroprestamo")
     public String registrarPrestamo(ModelMap modelo){
         modelo.put("libros", libroRepositorio.listarLibrosOrdenadosNombre());
@@ -82,6 +82,35 @@ public class UsuarioControlador {
         return "usuarios.html";
     }
     
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/modificarusuario/{id}")
+    public String modificarUsuario(ModelMap modelo, @PathVariable String id){
+        modelo.put("usuario", usuarioRepositorio.getOne(id));
+        return "usuariomodificar.html";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PostMapping("/modificarusuario/{id}")
+    public String modificarUsuario(ModelMap modelo, @PathVariable String id, String nombre, String apellido, String email){
+        try {
+            usuarioServicio.modificarUsuario(id, nombre, apellido, email);
+            modelo.put("exito", "El usuario se actualizó correctamente");
+            modelo.put("usuarios", usuarioRepositorio.listarUsuariosOrdenados());
+            modelo.put("alta", "SI");
+            modelo.put("baja", "NO");
+        } catch (Exception ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("usuarios", usuarioRepositorio.listarUsuariosOrdenados());
+            modelo.put("alta", "SI");
+            modelo.put("baja", "NO");
+        }
+        
+        return "usuarios.html";
+    }
+    
+    
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("bajausuario/{id}")
     public String baja(@PathVariable String id){
         try {
@@ -92,6 +121,7 @@ public class UsuarioControlador {
         }
     } 
     
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("altausuario/{id}")
     public String alta(@PathVariable String id){
         try {
@@ -102,5 +132,17 @@ public class UsuarioControlador {
         }
     }
     
+    //VALIDAR PRESTAMOS CON USUARIOS
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("eliminarusuario/{id}")
+    public String eliminar(ModelMap modelo, @PathVariable String id){
+        try {
+            usuarioServicio.eliminarUsuario(id);
+            return "redirect:/usuario";
+        } catch (Exception ex) {
+            modelo.put("error", ex.getMessage());
+            return "usuarios.html";
             
+        }
+    }
 }

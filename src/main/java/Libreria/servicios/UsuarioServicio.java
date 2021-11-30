@@ -52,6 +52,22 @@ public class UsuarioServicio implements UserDetailsService { //Implementa UserDe
     }
     
     @Transactional
+    public void modificarUsuario(String ideusuario, String nombre, String apellido, String email) throws ErrorServicio{
+        validarDatos(nombre, apellido, email, apellido, apellido);
+        
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(ideusuario);
+        if(respuesta.isPresent()){
+            Usuario usuario = respuesta.get();
+            
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setEmail(email);
+        }else{
+            throw new ErrorServicio("No se encontró el usuario solicitado");
+        }
+    }
+    
+    @Transactional
     public void bajaUsuario(String ideusuario) throws ErrorServicio{
         Optional<Usuario> respuesta = usuarioRepositorio.findById(ideusuario);
         if(respuesta.isPresent()){
@@ -77,6 +93,19 @@ public class UsuarioServicio implements UserDetailsService { //Implementa UserDe
         }
     }
     
+    @Transactional
+    public void eliminarUsuario(String ideusuario) throws ErrorServicio{
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(ideusuario);
+        if(respuesta.isPresent()){
+            Usuario usuario = respuesta.get();
+            
+            usuarioRepositorio.delete(usuario);
+        } else{
+            throw new ErrorServicio("No se encontró el usuario solicitado");
+        }
+        
+    }
+    
     private void validarDatos(String nombre, String apellido, String email, String password, String password2) throws ErrorServicio{
         if(nombre == null || nombre.trim().isEmpty()){
             throw new ErrorServicio("El nombre no puede ser nulo");
@@ -95,6 +124,9 @@ public class UsuarioServicio implements UserDetailsService { //Implementa UserDe
         }
         if(!email.contains("@")){
             throw new ErrorServicio("El email ingresado no es válido");
+        }
+        if(password.trim().isEmpty() || password == null){
+            throw new ErrorServicio("La contraseña no puede ser nula");
         }
         if(password.length() < 8){
             throw new ErrorServicio("La contraseña debe tener al menos 8 caracteres");

@@ -99,46 +99,6 @@ public class PrestamoControlador {
         }
         return "prestamousuario.html";
     }
-//    @GetMapping("/prestamo")
-//    public String prestamo(ModelMap modelo){
-//        modelo.put("prestamos", prestamoRepositorio.buscarPrestamosPorClientes());
-//        modelo.put("libros", librorepositorio.listarLibrosOrdenadosNombre());
-//        modelo.put("clientes", clienteRepositorio.buscarClientesOrdenados());
-//        modelo.put("alta", "SI");
-//        modelo.put("baja", "NO");
-//        
-//        return "prestamo.html";
-//    }
-//    
-//    @PostMapping("/registrarprestamo/")
-//    public String registrarprestamo(ModelMap modelo, @RequestParam(required = false) String fechaDevolucion, @RequestParam String idlibro, @RequestParam String idusuario){
-//        try {
-//            if(fechaDevolucion == null || fechaDevolucion.trim().isEmpty()){
-//                throw new Exception("La fecha ingresada no puede ser nula");
-//            }
-//            
-//            Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaDevolucion);
-//            
-//            prestamoServicio.registrarPrestamo(fecha, idlibro, idusuario);
-//            modelo.put("exito", "El préstamo se registró correctamente");
-//            
-//            modelo.put("prestamos", prestamoRepositorio.buscarPrestamosPorClientes());
-//            modelo.put("libros", librorepositorio.listarLibrosOrdenadosNombre());
-//            modelo.put("clientes", clienteRepositorio.buscarClientesOrdenados());
-//            modelo.put("alta", "SI");
-//            modelo.put("baja", "NO");
-//            
-//        } catch (Exception ex) {
-//            modelo.put("error", ex.getMessage());
-//            modelo.put("prestamos", prestamoRepositorio.buscarPrestamosPorClientes());
-//            modelo.put("libros", librorepositorio.listarLibrosOrdenadosNombre());
-//            modelo.put("clientes", clienteRepositorio.buscarClientesOrdenados());
-//            modelo.put("alta", "SI");
-//            modelo.put("baja", "NO");
-//        }
-//        
-//        return "prestamo.html";
-//    }
     
     @GetMapping("/bajaprestamo/{id}")
     public String baja(@PathVariable String id){
@@ -166,6 +126,7 @@ public class PrestamoControlador {
         
         return "prestamolista.html";
     }
+    
     @GetMapping("/prestamosmodificar/{id}")
     public String modificarPrestamos(ModelMap modelo, @PathVariable String id){
         

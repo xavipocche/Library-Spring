@@ -1,5 +1,6 @@
 package Libreria.repositorios;
 
+import Libreria.entidades.Prestamo;
 import Libreria.entidades.Usuario;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,5 +20,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     
     @Query("SELECT u FROM Usuario u WHERE u.email = :email")
     public Usuario buscarPorEmail(@Param("email") String email);
-
+    
+    @Query("SELECT p FROM Prestamo p WHERE p.usuario.id = :idusuario")
+    public List<Prestamo> validarUsuarioPrestamo(@Param("idusuario") String idusuario);
 }

@@ -108,8 +108,6 @@ public class UsuarioControlador {
         return "usuarios.html";
     }
     
-    
-    
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("bajausuario/{id}")
     public String baja(@PathVariable String id){
@@ -141,6 +139,9 @@ public class UsuarioControlador {
             return "redirect:/usuario";
         } catch (Exception ex) {
             modelo.put("error", ex.getMessage());
+            modelo.put("usuarios", usuarioRepositorio.listarUsuariosOrdenados());
+            modelo.put("alta", "SI");
+            modelo.put("baja", "NO");
             return "usuarios.html";
             
         }

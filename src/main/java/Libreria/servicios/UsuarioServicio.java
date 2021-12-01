@@ -1,6 +1,7 @@
 package Libreria.servicios;
 
 import Libreria.Roles;
+import Libreria.entidades.Prestamo;
 import Libreria.entidades.Usuario;
 import Libreria.errores.ErrorServicio;
 import Libreria.repositorios.UsuarioRepositorio;
@@ -94,16 +95,19 @@ public class UsuarioServicio implements UserDetailsService { //Implementa UserDe
     }
     
     @Transactional
-    public void eliminarUsuario(String ideusuario) throws ErrorServicio{
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(ideusuario);
+    public void eliminarUsuario(String idusuario) throws ErrorServicio{
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(idusuario);
         if(respuesta.isPresent()){
             Usuario usuario = respuesta.get();
-            
-            usuarioRepositorio.delete(usuario);
+            List<Prestamo> prestamos = usuarioRepositorio.validarUsuarioPrestamo(idusuario);
+            if(prestamos.size() == 0){
+                usuarioRepositorio.delete(usuario);
+            } else{
+                throw new ErrorServicio("No puede eliminar un usuario que tenga préstamos asociados");
+            }    
         } else{
             throw new ErrorServicio("No se encontró el usuario solicitado");
         }
-        
     }
     
     private void validarDatos(String nombre, String apellido, String email, String password, String password2) throws ErrorServicio{

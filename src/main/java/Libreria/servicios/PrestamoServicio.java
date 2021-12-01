@@ -8,6 +8,7 @@ import Libreria.repositorios.LibroRepositorio;
 import Libreria.repositorios.PrestamoRepositorio;
 import Libreria.repositorios.UsuarioRepositorio;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,8 @@ public class PrestamoServicio {
             prestamo.setLibro(libro);
             prestamo.setUsuario(usuario);
             prestamo.setAlta(true);
+            libro.setEjemplaresRestantes(libro.getEjemplaresRestantes()-1);
+            libro.setEjemplaresPrestados(libro.getEjemplaresPrestados()+1);
         } else{
             throw new ErrorServicio("La fecha de devolución no puede ser anterior a la fecha actual");
         }
@@ -111,7 +114,9 @@ public class PrestamoServicio {
         Optional<Prestamo> respuesta = prestamoRepositorio.findById(id);
         if(respuesta.isPresent()){
             Prestamo prestamo = respuesta.get();
-            
+            Libro libro = prestamo.getLibro();
+            libro.setEjemplaresPrestados(libro.getEjemplaresPrestados()-1);
+            libro.setEjemplaresRestantes(libro.getEjemplaresRestantes()+1);
             prestamoRepositorio.delete(prestamo);
         } else{
             throw new ErrorServicio("No se encontró el préstamo solicitado");
@@ -119,6 +124,15 @@ public class PrestamoServicio {
     }
     
     private void validarDatos(Date fechaDevolucion, Libro libro, Usuario usuario) throws ErrorServicio{
+        if(libro.getEjemplaresRestantes() == 0){
+            throw new ErrorServicio("No hay stock del libro seleccionado");
+        }
+        if(libro.getAlta() == false){
+            throw new ErrorServicio("El libro seleccionado fue dado de baja");
+        }
+        if(usuario.getAlta() == false){
+            throw new ErrorServicio("Su perfil está dado de baja");
+        }
         if(fechaDevolucion == null){
             throw new ErrorServicio("La fecha de devolución no puede ser nula");
         }

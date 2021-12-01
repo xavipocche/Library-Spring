@@ -80,7 +80,7 @@ public class PrestamoControlador {
     //REGISTRO DE PRÉSTAMOS EXCLUSIVO PARA USUARIOS
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping("/registrarprestamousuario")
-    public String registrarprestamousuario(ModelMap modelo, @RequestParam String idusuario, @RequestParam(required = false) String fechaDevolucion, @RequestParam String idlibro){
+    public String registrarprestamousuario(ModelMap modelo, @RequestParam String idusuario, @RequestParam(required = false) String fechaDevolucion, @RequestParam(required = false) String idlibro){
         try {
             System.out.println(idusuario + " ID DEL CLIENTE");
             if(fechaDevolucion == null || fechaDevolucion.trim().isEmpty()){

@@ -18,5 +18,4 @@ public interface PrestamoRepositorio extends JpaRepository<Prestamo, String> {
     
     @Query("SELECT p FROM Prestamo p ORDER BY p.libro.titulo")
     public List<Prestamo> buscarPrestamosPorTitulo();
-    
 }

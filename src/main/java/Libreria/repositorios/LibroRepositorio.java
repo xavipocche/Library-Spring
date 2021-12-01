@@ -25,5 +25,5 @@ public interface LibroRepositorio extends JpaRepository<Libro, String> {
     public List<Libro> listarLibrosOrdenadosautor();
     
     @Query("SELECT p FROM Prestamo p WHERE p.libro.id = :idlibro")
-    public List<Prestamo> validarLibroPrestamo(@Param("idlibro") String idelibro);
+    public List<Prestamo> validarLibroPrestamo(@Param("idlibro") String idlibro);
 }

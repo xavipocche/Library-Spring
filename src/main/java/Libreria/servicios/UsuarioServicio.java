@@ -53,10 +53,10 @@ public class UsuarioServicio implements UserDetailsService { //Implementa UserDe
     }
     
     @Transactional
-    public void modificarUsuario(String ideusuario, String nombre, String apellido, String email) throws ErrorServicio{
-        validarDatos(nombre, apellido, email, apellido, apellido);
+    public void modificarUsuario(String idusuario, String nombre, String apellido, String email) throws ErrorServicio{
+        validarDatosModificar(nombre, apellido, email);
         
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(ideusuario);
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(idusuario);
         if(respuesta.isPresent()){
             Usuario usuario = respuesta.get();
             
@@ -137,6 +137,24 @@ public class UsuarioServicio implements UserDetailsService { //Implementa UserDe
         }
         if(!password.equals(password2)){
             throw new ErrorServicio("Las contraseñas no coinciden");
+        }
+    }
+    
+    private void validarDatosModificar(String nombre, String apellido, String email)  throws ErrorServicio{
+        if(nombre == null || nombre.trim().isEmpty()){
+            throw new ErrorServicio("El nombre no puede ser nulo");
+        }
+        if(nombre.length() > 20){
+            throw new ErrorServicio("El nombre no puede exceder de los 20 caracteres");
+        }
+        if(apellido == null || apellido.trim().isEmpty()){
+            throw new ErrorServicio("El apellido no puede ser nulo"); 
+        }
+        if(apellido.length() > 20){
+            throw new ErrorServicio("El apellido no puede exceder de los 20 caracteres");
+        }
+        if(email == null || email.trim().isEmpty()){
+            throw new ErrorServicio("El email no puede ser nulo");
         }
     }
 

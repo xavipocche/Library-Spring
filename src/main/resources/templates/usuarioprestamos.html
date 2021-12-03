@@ -4,24 +4,10 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar" style=" border-bottom: 1px solid white; margin-bottom: 10px; background-color: background: rgb(0,0,0); background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(96,93,93,1) 90%) !important;"> 
         
-        <div class="dropdown" sec:authorize="hasRole('ADMIN')">
-            <button th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" style="background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgb(104 104 104) 150%); "></button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgb(104 104 104) 150%); border: 1px solid white">
-                <a class="dropdown-item dpd" href="/libro" >Administrar Libreria</a>
-            </div>
-        </div>
-            
-        <div sec:authorize="hasRole('USER')" style="color: white; padding: 7px ;border: 2px solid white; border-radius: 5px;" >
+        <div style="color: white; padding: 7px ;border: 2px solid white; border-radius: 5px;" >
             <p style="margin: 0;" th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></p>
         </div>
         
-        <div sec:authorize="hasRole('USER')" style="border: 2px solid white; padding: 7px; border-radius: 5px; margin-left: 5px;">
-            <form action="/prestamosusuario" method="POST">
-                <input hidden th:value="${session.usuariosession.id}" name="idusuario">
-                <button type="submit" style="background: none; border: none;"><a class="nav" id="inicioPrestamo" th:text="${'Mis prestamos'}" style="text-decoration: none;"></a></button>
-            </form>
-        </div>
-            
         <div class="col"></div>
         
         <div style="margin-left: 10px;">
@@ -29,7 +15,7 @@
         </div>
     </nav>
     
-    <center sec:authorize="hasRole('USER')">
+    <center>
         <div id="titulo" class="col-11 row">
             
             <div class="col-1">
@@ -51,29 +37,33 @@
         </div>
     </center>
    
-   <div class="row justify-content-center fixdivleft" sec:authorize="hasRole('USER')">
+   <div class="row justify-content-center fixdivleft">
     <div class="col-11 formulario">
         <table>
             <thead>
                 <tr style="color:yellow; font-family: Verdana; font-size: 17px">
-                    <th>TÍTULO</th>
-                    <th>AUTOR</th>
-                    <th>EJ. DISPONIBLES</th>
-                    <th>AÑO</th>
-                    <th>EDITORIAL</th>
+                    <th>LIBRO PRESTADO</th>
+                    <th>CLIENTE</th>
+                    <th>FECHA PRESTAMO</th>
+                    <th>FECHA DEVOLUCION</th>
+                    <th>ALTA</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="libro: ${libros}">
-                    <th th:text="${libro.titulo}"></th>
-                    <th th:text="${libro.autor.nombre}"></th>
-                    <th th:text="${libro.ejemplaresRestantes}"></th>
-                    <th th:text="${libro.anio}"></th>
-                    <th th:text="${libro.editorial.nombre}"></th>
+                <tr th:each="prestamo: ${prestamos}">
+                    <th th:text="${prestamo.libro.titulo}"></th>
+                    <th th:text="${prestamo.usuario.nombre + ' ' + prestamo.usuario.apellido}"></th>
+                    <th th:text="${prestamo.fechaPrestamo}"></th>
+                    <th th:text="${prestamo.fechaDevolucion}"></th>
+                    
+                    <th
+                        <a><button type="button" class="btn btn-success" th:if="${prestamo.alta}" th:text="${alta}" style="color:white"></button></a>
+                        <a><button type="button" class="btn btn-danger" th:unless="${prestamo.alta}" th:text="${baja}" style="color:white"></button></a>
+                    </th>
                 </tr>
             </tbody>
         </table>
-        <center><a th:href="@{/useregistroprestamo}"><button type="button" class="btn btn-warning boton" style="margin-top: 5px">Solicitar Préstamo</button></a></center>
+        <center style="margin-top: 5px;"><a th:href="@{/inicio}"><button name="nombre" type="button" class="btn btn-primary" style="margin-left: 5px;">Volver</button></a></center>
     </div>  
    </div>
 

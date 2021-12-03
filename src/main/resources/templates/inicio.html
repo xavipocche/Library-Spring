@@ -11,15 +11,18 @@
             </div>
         </div>
             
-            <div sec:authorize="hasRole('USER')" style="color: white; padding: 7px ;border: 2px solid white; border-radius: 5px;" >
-                <a  th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></button></a>
-            </div>
-            
-        <div class="col">
-            <center>
-                <h2 style="font-family: monospace" th:text="${'Bienvenido' + ' ' + session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></h2>
-            </center>
+        <div sec:authorize="hasRole('USER')" style="color: white; padding: 7px ;border: 2px solid white; border-radius: 5px;" >
+            <p style="margin: 0;" th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></p>
         </div>
+        
+        <div sec:authorize="hasRole('USER')" style="border: 2px solid white; padding: 7px; border-radius: 5px; margin-left: 5px;">
+            <form action="/prestamosusuario" method="POST">
+                <input hidden th:value="${session.usuariosession.id}" name="idusuario">
+                <button type="submit" style="background: none; border: none;"><a class="nav" id="inicioPrestamo" th:text="${'Mis prestamos'}" style="text-decoration: none;"></a></button>
+            </form>
+        </div>
+            
+        <div class="col"></div>
         
         <div style="margin-left: 10px;">
             <a th:href="@{/logout}"><button type="button" class="btn btn-danger">Cerrar Sesion</button></a>
@@ -70,7 +73,7 @@
                 </tr>
             </tbody>
         </table>
-        <center><a th:href="@{/useregistroprestamo(id=__${session.usuariosession.id}__)}"><button type="button" class="btn btn-warning boton" style="margin-top: 5px">Solicitar Préstamo</button></a></center>
+        <center><a th:href="@{/useregistroprestamo}"><button type="button" class="btn btn-warning boton" style="margin-top: 5px">Solicitar Préstamo</button></a></center>
     </div>  
    </div>
 

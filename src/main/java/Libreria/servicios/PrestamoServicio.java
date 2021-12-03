@@ -131,7 +131,7 @@ public class PrestamoServicio {
             throw new ErrorServicio("El libro seleccionado fue dado de baja");
         }
         if(usuario.getAlta() == false){
-            throw new ErrorServicio("Su perfil está dado de baja");
+            throw new ErrorServicio("Su usuario está dado de baja");
         }
         if(fechaDevolucion == null){
             throw new ErrorServicio("La fecha de devolución no puede ser nula");

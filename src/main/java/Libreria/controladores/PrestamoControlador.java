@@ -1,11 +1,13 @@
 package Libreria.controladores;
 
+import Libreria.entidades.Prestamo;
 import Libreria.repositorios.LibroRepositorio;
 import Libreria.repositorios.UsuarioRepositorio;
 import Libreria.repositorios.PrestamoRepositorio;
 import Libreria.servicios.PrestamoServicio;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -168,5 +170,15 @@ public class PrestamoControlador {
             return "/prestamolistactualizada";
         }
     }
+    
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/prestamosusuario")
+    public String prestamosUsuario(ModelMap modelo, @RequestParam String idusuario){
+        List<Prestamo> prestamos = prestamoRepositorio.buscarPorIDUsuario(idusuario);
+        modelo.put("prestamos", prestamos);
+        modelo.put("alta", "SI");
+        modelo.put("baja", "NO");
+        
+        return "usuarioprestamos.html";
+    }
 }
-//AL EFECTUAR UN PRESTAMO RESTAR DEL STOCK DISPONIBLE DE LOS LIBROS

@@ -41,7 +41,7 @@
     </center>
     <div class="row justify-content-center fixdivleft">
         <div class="formulario col-6">
-            <form th:action="@{/registrarprestamousuario(id=__${session.usuariosession.id}__)}" method="POST">
+            <form th:action="@{/registrarprestamousuario}" method="POST">
             <input hidden th:value="${session.usuariosession.id}" name="idusuario">
 
                 <div class="form-group">
@@ -59,7 +59,7 @@
                 <p class="error" th:if="${error != null}" th:text="${error}"></p>
                 <p class="exito" th:if="${exito != null}" th:text="${exito}"></p>
 
-                <button type="submit" class="btn btn-primary" >Guardar</button>
+                <button type="submit" class="btn btn-primary" >Solicitar</button>
                 <button type="reset" class="btn btn-danger boton">Limpiar</button>
             </form>
         </div>

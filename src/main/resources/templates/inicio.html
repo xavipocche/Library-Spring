@@ -29,8 +29,8 @@
         </div>
     </nav>
     
-    <center>
-        <div class="col-11" sec:autorize="hasRole('ADMIN')" style="padding: 0; border: white solid 2px; height: fit-content; font-family: monospace; background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgb(104 104 104) 150%); text-align: justify " >
+    <div align="center" sec:authorize="hasRole('ADMIN')">
+        <div class="col-11"  style="padding: 0; border: white solid 2px; height: fit-content; font-family: monospace; background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgb(104 104 104) 150%); text-align: justify " >
             <div align="center">
                 <h1 class="col-6" style="color: yellow">Bienvenido a la librería</h1>
             </div>
@@ -40,9 +40,8 @@
                     Aquí, con el rol de administrador, podrá guardar libros, editoriales, autores, y gestionar los préstamos que los usuarios soliciten. Para comenzar a ingresar datos, presione en "Administrar Librería" en el menú superior izquierdo.
                 </h2>
             </div>
-            
         </div>
-    </center>
+    </div>
     
     <center sec:authorize="hasRole('USER')">
         <div id="titulo" class="col-11 row">

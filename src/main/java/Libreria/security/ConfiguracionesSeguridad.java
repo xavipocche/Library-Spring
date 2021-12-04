@@ -38,6 +38,12 @@ public class ConfiguracionesSeguridad extends WebSecurityConfigurerAdapter{
             .and().logout() // Aca configuro la salida 
                 .logoutUrl("/logout") 
                 .logoutSuccessUrl("/") 
-                .permitAll().and().csrf().disable();
+                .permitAll().and().csrf().disable()
+                .sessionManagement()
+                .invalidSessionUrl("/?invalid-session=true"); //Cuando la sesión finaliza redirijo al login
+            
+            
+            
+            
     }
 }

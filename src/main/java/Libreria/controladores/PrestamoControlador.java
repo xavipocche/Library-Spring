@@ -47,7 +47,6 @@ public class PrestamoControlador {
         return "prestamo.html";
     }
     
-    
     //CAMBIAR POR REGISTRAR USUARIO
     @PostMapping("/registrarprestamo")
     public String registrarprestamo(ModelMap modelo, @RequestParam String idusuario, @RequestParam(required = false) String fechaDevolucion, @RequestParam String idlibro){
@@ -142,7 +141,6 @@ public class PrestamoControlador {
     @PostMapping("/prestamosmodificar/{id}")
     public String modificarPrestamos(ModelMap modelo, @PathVariable String id, @RequestParam(required = false) String fechaDevolucion, @RequestParam String idlibro, @RequestParam String idusuario){
         try {
-            
             if(fechaDevolucion == null || fechaDevolucion.trim().isEmpty()){
                 throw new Exception("La fecha no puede ser nula");
             }

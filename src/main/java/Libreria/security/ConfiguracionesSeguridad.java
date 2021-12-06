@@ -41,9 +41,5 @@ public class ConfiguracionesSeguridad extends WebSecurityConfigurerAdapter{
                 .permitAll().and().csrf().disable()
                 .sessionManagement()
                 .invalidSessionUrl("/?invalid-session=true"); //Cuando la sesión finaliza redirijo al login
-            
-            
-            
-            
     }
 }

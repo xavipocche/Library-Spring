@@ -43,6 +43,7 @@ public class PrestamoControlador {
         modelo.put("usuarios", usuarioRepositorio.listarUsuariosOrdenados());
         modelo.put("alta", "SI");
         modelo.put("baja", "NO");
+        prestamoServicio.verificarFechas();
         
         return "prestamo.html";
     }

@@ -123,6 +123,18 @@ public class PrestamoServicio {
         }
     }
     
+    @Transactional
+    public void verificarFechas(){
+        List<Prestamo> prestamos = prestamoRepositorio.findAll();
+        Date fechaActual = new Date();
+        
+        for (Prestamo aux : prestamos) {
+            if(fechaActual.after(aux.getFechaDevolucion())){
+                aux.setAlta(false);
+            }
+        }
+    }
+    
     private void validarDatos(Date fechaDevolucion, Libro libro, Usuario usuario) throws ErrorServicio{
         if(libro.getEjemplaresRestantes() == 0){
             throw new ErrorServicio("No hay stock del libro seleccionado");

@@ -1,4 +1,4 @@
-### In this repository there is a project that I have made using Spring, Java, HTML and CSS, it consists of a library where you can manage the stock and loan of books to clients, for its correct use a database must be created with the name of "libreriaspring" in MySQL workbench.
+### In this repository there is a project that I have made using Spring, Java ♨, HTML and CSS, it consists of a library where you can manage the stock and loan of books to clients, for its correct use a database must be created with the name of "libreriaspring" in MySQL workbench.
 
 You can see a litle demo in this link: https://www.linkedin.com/feed/update/urn:li:activity:6873658508357849089/
 

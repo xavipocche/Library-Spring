@@ -20,9 +20,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Order(1)
 public class ConfiguracionesSeguridad extends WebSecurityConfigurerAdapter{
     
-    @Autowired
-    private UsuarioServicio usuarioServicio;
-    
     @Override 
     protected void configure(HttpSecurity http) throws Exception {http
             .authorizeRequests() 

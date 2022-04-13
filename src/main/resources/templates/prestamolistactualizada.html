@@ -49,8 +49,8 @@
                 <tr th:each="prestamo: ${prestamos}">
                     <th th:text="${prestamo.libro.titulo}"></th>
                     <th th:text="${prestamo.usuario.nombre + ' ' + prestamo.usuario.apellido}"></th>
-                    <th th:text="${prestamo.fechaPrestamo}"></th>
-                    <th th:text="${prestamo.fechaDevolucion}"></th>
+                    <th th:text="${#dates.format(prestamo.fechaPrestamo, 'dd-MM-yyyy')}"></th>
+                    <th th:text="${#dates.format(prestamo.fechaDevolucion, 'dd-MM-yyyy')}"></th>
                 </tr>
             </tbody>
         </table>

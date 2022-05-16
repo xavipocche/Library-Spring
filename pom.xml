@@ -58,17 +58,11 @@
 			<optional>true</optional>
 		</dependency>
                 <!--mysql-->
-<!--		<dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>-->
-                <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-                <dependency>
-                    <groupId>org.postgresql</groupId>
-                    <artifactId>postgresql</artifactId>
-                    <scope>runtime</scope>
-                </dependency>
+		</dependency>
                 <!--spring security-->    
 		<dependency>
 			<groupId>org.springframework.security</groupId>

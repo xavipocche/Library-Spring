@@ -1,6 +1,12 @@
+####LibrarySpring
+
 English
 
 ### In this repository there is a project that I have made using Spring, Java ♨, HTML and CSS, it consists of a library where you can manage the stock and loan of books to clients, for its correct use a schema must be created with the name of "libreriaspring" in MySQL workbench.
+
+Tecnologies used 🛠
+
+
 
 You can see a litle demo in the following link: https://www.linkedin.com/feed/update/urn:li:activity:6873658508357849089/
 
